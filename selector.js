@@ -1,30 +1,15 @@
+var hr = (new Date()).getHours(); //0-23
+
 var head = document.getElementsByTagName('head')[0];
 var js = document.createElement("script");
 
 js.type = "text/javascript";
-
-var hr = (new Date()).getHours(); //0-23
-
-if (hr > 6 && hr < 21) {
-    //day mode
-    js.src = "js/bootstrap.min.js";
-
-    var lnk = document.createElement('link');
-    lnk.type = 'text/css';
-    lnk.href = 'css/bootstrap.min.css';
-    lnk.rel = 'stylesheet';
-    var highlight = document.querySelector('[src$="selector.js"]');
-    highlight.parentNode.insertBefore(lnk, highlight);
-} else {
-    //dark mode
-    js.src = "js/bootstrap.dark.min.js";
-
-    var lnk = document.createElement('link');
-    lnk.type = 'text/css';
-    lnk.href = 'css/bootstrap.dark.min.css';
-    lnk.rel = 'stylesheet';
-    var highlight = document.querySelector('[src$="selector.js"]');
-    highlight.parentNode.insertBefore(lnk, highlight);
-}
-
+js.src = hr > 6 && hr < 21 ? "js/bootstrap.min.js" : "js/bootstrap.dark.min.js";
 head.appendChild(js);
+
+var lnk = document.createElement('link');
+lnk.type = 'text/css';
+lnk.href = hr > 6 && hr < 21 ? 'css/bootstrap.min.css' : 'css/bootstrap.dark.min.css';
+lnk.rel = 'stylesheet';
+var selectorJs = document.querySelector('[src$="selector.js"]');
+selectorJs.parentNode.insertBefore(lnk, selectorJs);
